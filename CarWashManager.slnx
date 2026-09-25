@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="CarWashManager.Core/CarWashManager.Core.csproj" />
+  <Project Path="CarWashManager.WpfApp/CarWashManager.WpfApp.csproj" />
+</Solution>

@@ -1,0 +1,117 @@
+﻿<Window x:Class="CarWashManager.WpfApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Autopesula tellimused"
+        Height="620"
+        Width="900">
+
+    <Grid Margin="20">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0"
+                   Text="Autopesula tellimused"
+                   FontSize="24"
+                   FontWeight="Bold"
+                   Margin="0,0,0,15"/>
+
+        <StackPanel Grid.Row="1"
+                    Orientation="Horizontal"
+                    Margin="0,0,0,15">
+
+            <TextBox x:Name="SearchTextBox"
+                     Width="250"
+                     Height="30"
+                     Margin="0,0,10,0"/>
+
+            <Button Content="Otsi"
+                    Width="90"
+                    Height="30"
+                    Click="Search_Click"/>
+
+            <Button Content="Näita kõiki"
+                    Width="100"
+                    Height="30"
+                    Margin="10,0,0,0"
+                    Click="ShowAll_Click"/>
+
+        </StackPanel>
+
+        <DataGrid x:Name="OrdersDataGrid"
+                  Grid.Row="2"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True"
+                  SelectionMode="Single"
+                  Margin="0,0,0,15">
+
+            <DataGrid.Columns>
+
+                <DataGridTextColumn Header="Reg. number"
+                                    Binding="{Binding RegistrationNumber}"
+                                    Width="*"/>
+
+                <DataGridTextColumn Header="Sõiduk"
+                                    Binding="{Binding VehicleType}"
+                                    Width="*"/>
+
+                <DataGridTextColumn Header="Programm"
+                                    Binding="{Binding WashProgram}"
+                                    Width="*"/>
+
+                <DataGridTextColumn Header="Staatus"
+                                    Binding="{Binding Status}"
+                                    Width="*"/>
+
+                <DataGridTextColumn Header="Hind"
+                                    Binding="{Binding Price, StringFormat={}{0:F2} €}"
+                                    Width="*"/>
+
+                <DataGridTextColumn Header="Kestus"
+                                    Binding="{Binding DurationMinutes, StringFormat={}{0} min}"
+                                    Width="*"/>
+
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <StackPanel Grid.Row="3"
+                    Orientation="Horizontal"
+                    Margin="0,0,0,15">
+
+            <Button Content="Lisa"
+                    Width="100"
+                    Height="35"
+                    Click="Add_Click"/>
+
+            <Button Content="Muuda"
+                    Width="100"
+                    Height="35"
+                    Margin="10,0,0,0"
+                    Click="Edit_Click"/>
+
+            <Button Content="Kustuta"
+                    Width="100"
+                    Height="35"
+                    Margin="10,0,0,0"
+                    Click="Delete_Click"/>
+
+        </StackPanel>
+
+        <StackPanel Grid.Row="4">
+
+            <TextBlock x:Name="SummaryTextBlock"
+                       FontSize="16"
+                       FontWeight="Bold"
+                       Margin="0,0,0,5"/>
+
+            <TextBlock x:Name="StatusTextBlock"/>
+
+        </StackPanel>
+
+    </Grid>
+</Window>
