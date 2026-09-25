@@ -1,6 +1,6 @@
 # CarWashManager
 
-WPF rakendus autopesula tellimuste haldamiseks.
+WPF rakendus autopesula tellimuste haldamiseks
 
 ## Projekti struktuur
 
@@ -39,14 +39,14 @@ Staatused:
 - InProgress
 - Completed
 
-Tellimused salvestatakse fikseeritud 100 elemendiga massiivi.
+Tellimused salvestatakse fikseeritud 100 elemendiga massiivi
 
 ## Eeldused
 
-- Registreerimisnumber peab sisaldama 3 kuni 10 märki.
-- Completed staatusega tellimust ei arvestata aktiivse järjekorra kestuses.
-- Hind ja kestus sõltuvad sõiduki tüübi ja pesuprogrammi kombinatsioonist.
-- Eeldatav lõpetamise aeg arvutatakse aktiivse järjekorra kogukestuse põhjal.
+- Registreerimisnumber peab sisaldama 3 kuni 10 märki
+- Completed staatusega tellimust ei arvestata aktiivse järjekorra kestuses
+- Hind ja kestus sõltuvad sõiduki tüübi ja pesuprogrammi kombinatsioonist
+- Eeldatav lõpetamise aeg arvutatakse aktiivse järjekorra kogukestuse põhjal
 
 ## Kontrollnäited
 
@@ -73,6 +73,6 @@ Van + Standard
 
 ## Käivitamine
 
-1. Ava CarWashManager solution Visual Studios.
-2. Määra CarWashManager.WpfApp käivitusprojektiks.
-3. Käivita rakendus.
+1. Ava CarWashManager solution Visual Studios
+2. Määra CarWashManager.WpfApp käivitusprojektiks
+3. Käivita rakendus
