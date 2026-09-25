@@ -8,6 +8,9 @@ namespace CarWashManager.WpfApp
         private CarWashOrder[] orders = new CarWashOrder[100];
         private int count = 0;
 
+        private int[] visibleIndexes = new int[100];
+        private int visibleCount = 0;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -47,9 +50,9 @@ namespace CarWashManager.WpfApp
         {
             StatusTextBlock.Text = "";
 
-            int index = OrdersDataGrid.SelectedIndex;
+            int selectedIndex = OrdersDataGrid.SelectedIndex;
 
-            if (index < 0 || index >= count)
+            if (selectedIndex < 0 || selectedIndex >= visibleCount)
             {
                 StatusTextBlock.Text =
                     Properties.Resources.SelectOrderToEdit;
@@ -57,14 +60,16 @@ namespace CarWashManager.WpfApp
                 return;
             }
 
-            OrderDialog dialog = new OrderDialog(orders[index])
+            int realIndex = visibleIndexes[selectedIndex];
+
+            OrderDialog dialog = new OrderDialog(orders[realIndex])
             {
                 Owner = this
             };
 
             if (dialog.ShowDialog() == true)
             {
-                orders[index] = dialog.Order;
+                orders[realIndex] = dialog.Order;
 
                 RefreshDataGrid();
                 UpdateSummary();
@@ -75,15 +80,17 @@ namespace CarWashManager.WpfApp
         {
             StatusTextBlock.Text = "";
 
-            int index = OrdersDataGrid.SelectedIndex;
+            int selectedIndex = OrdersDataGrid.SelectedIndex;
 
-            if (index < 0 || index >= count)
+            if (selectedIndex < 0 || selectedIndex >= visibleCount)
             {
                 StatusTextBlock.Text =
                     Properties.Resources.SelectOrderToDelete;
 
                 return;
             }
+
+            int realIndex = visibleIndexes[selectedIndex];
 
             MessageBoxResult answer = MessageBox.Show(
                 Properties.Resources.DeleteQuestion,
@@ -96,7 +103,7 @@ namespace CarWashManager.WpfApp
                 return;
             }
 
-            for (int i = index; i < count - 1; i++)
+            for (int i = realIndex; i < count - 1; i++)
             {
                 orders[i] = orders[i + 1];
             }
@@ -121,7 +128,7 @@ namespace CarWashManager.WpfApp
             CarWashOrder[] results =
                 new CarWashOrder[count];
 
-            int resultCount = 0;
+            visibleCount = 0;
 
             for (int i = 0; i < count; i++)
             {
@@ -129,18 +136,19 @@ namespace CarWashManager.WpfApp
                     .ToLower()
                     .Contains(searchText))
                 {
-                    results[resultCount] = orders[i];
-                    resultCount++;
+                    results[visibleCount] = orders[i];
+                    visibleIndexes[visibleCount] = i;
+                    visibleCount++;
                 }
             }
 
             CarWashOrder[] visibleResults =
-                new CarWashOrder[resultCount];
+                new CarWashOrder[visibleCount];
 
             Array.Copy(
                 results,
                 visibleResults,
-                resultCount);
+                visibleCount);
 
             OrdersDataGrid.ItemsSource = visibleResults;
         }
@@ -157,10 +165,13 @@ namespace CarWashManager.WpfApp
             CarWashOrder[] visibleOrders =
                 new CarWashOrder[count];
 
-            Array.Copy(
-                orders,
-                visibleOrders,
-                count);
+            visibleCount = count;
+
+            for (int i = 0; i < count; i++)
+            {
+                visibleOrders[i] = orders[i];
+                visibleIndexes[i] = i;
+            }
 
             OrdersDataGrid.ItemsSource = visibleOrders;
         }
